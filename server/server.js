@@ -1,7 +1,7 @@
-import dotenv from dotenv;
-import fs from fs;
-import https from https;
-import express from express;
+import dotenv from 'dotenv';
+import fs from 'fs';
+import https from 'https';
+import express from 'express';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
