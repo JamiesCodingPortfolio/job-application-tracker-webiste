@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter, Routes, Route, Link } from "react-router";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function Home() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
+      <Link
+        to="/login"
+        className="w-[30%] h-[20%] flex items-center justify-center text-center bg-gray-100 rounded-lg"
+      >
+        <h1 className="text-2xl">Login</h1>
+      </Link>
+      <Link
+        to="/signup"
+        className="w-[30%] h-[20%] flex items-center justify-center text-center bg-gray-100 rounded-lg"
+      >
+        <h1 className="text-2xl">Signup</h1>
+      </Link>
+    </div>
+  );
 }
 
-export default App
+function Login() {
+  return <h1 className="text-3xl">Login Page</h1>;
+}
+
+function Signup() {
+  return <h1 className="text-3xl">Signup Page</h1>;
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <div className="h-screen w-screen flex flex-col items-center justify-center gap-10 bg-white">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
