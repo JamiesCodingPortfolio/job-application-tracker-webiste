@@ -1,5 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Link } from "react-router";
+import Login from "./routes/login"; 
+import Signup from "./routes/signup";
 
 function Home() {
   return (
@@ -18,14 +20,6 @@ function Home() {
       </Link>
     </div>
   );
-}
-
-function Login() {
-  return <h1 className="text-3xl">Login Page</h1>;
-}
-
-function Signup() {
-  return <h1 className="text-3xl">Signup Page</h1>;
 }
 
 export default function App() {
