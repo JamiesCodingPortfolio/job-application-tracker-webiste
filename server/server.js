@@ -30,13 +30,6 @@ else{
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  if (req.headers.host === 'j-brown.uk') {
-    return res.redirect(`https://www.j-brown.uk${req.url}`);
-  }
-  next();
-});
-
 if (HTTPS_ENABLED){
 
   const privateKey = fs.readFileSync(join(__dirname, '../private.key'), 'utf-8');
