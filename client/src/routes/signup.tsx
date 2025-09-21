@@ -1,4 +1,4 @@
-import { useState, FormEvent, use } from "react";
+import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router"
 
 const Signup = () => {
@@ -56,7 +56,9 @@ const Signup = () => {
     }
   }
   return (
-    <div>Signup</div>
+    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
+
+    </div>
   )
 }
 
