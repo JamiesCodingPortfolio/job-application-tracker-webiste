@@ -1,4 +1,5 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router"
 
 const Signup = () => {
@@ -24,7 +25,7 @@ const Signup = () => {
       const response = await fetch(`/api/signup`, {
         method: "POST",
         headers: {
-          "Content type": "application/json",
+          "Content-Type": "application/json",
         },
         credentials: 'include',
         mode: 'cors',
@@ -57,7 +58,9 @@ const Signup = () => {
   }
   return (
     <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
+      <form className="gap-y-2 px-8/">
 
+      </form>
     </div>
   )
 }
