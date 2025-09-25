@@ -92,6 +92,18 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <button 
+          type="submit"
+          className="bg-[#E2848C] text-white rounded-lg p-2 mt-4 hover:bg-[#d8737b] transition-colors"
+        >
+          Create Account
+        </button>
+
+        {message && (
+          <div className={`mt-2 p-2 rounded ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+            {message}
+          </div>
+        )}
       </form>
     </div>
   )
