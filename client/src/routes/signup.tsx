@@ -58,8 +58,17 @@ const Signup = () => {
   }
   return (
     <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
-      <form className="gap-y-2 px-8/">
-
+      <form className="gap-y-2 px-8" onSubmit={handleSubmit}>
+        <label htmlFor="name" className="text-gray-600">Name</label>
+        <input 
+          type="text"
+          id="name"
+          className="border rounded-lg p-2 text-center"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </form>
     </div>
   )
