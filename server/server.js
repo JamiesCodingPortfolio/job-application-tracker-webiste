@@ -14,7 +14,7 @@ dotenv.config({ path: join(__dirname, '../.env') });
 
 const app = express();
 
-app.use(express.static('dist'));
+app.use(express.static('public'));
 
 const HTTPS_ENABLED = process.env.HTTPS_ENABLED === 'true'
 const HTTP_PORT = parseInt(process.env.HTTP_PORT_NUMBER)
