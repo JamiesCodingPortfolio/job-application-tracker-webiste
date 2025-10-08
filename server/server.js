@@ -6,11 +6,14 @@ import https from 'https';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { connectDB } from './config/database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, '../.env') });
+
+connectDB();
 
 const app = express();
 
