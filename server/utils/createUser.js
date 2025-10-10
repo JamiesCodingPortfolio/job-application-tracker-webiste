@@ -1,5 +1,5 @@
-import User from "../models/userModel"
-import { generateSalt, hashPassword } from "./passwordHasher"
+import User from "../models/userModel.js"
+import { generateSalt, hashPassword } from "./passwordHasher.js"
 
 export const createUser = async (name, email, password) => {
     try {
@@ -12,7 +12,7 @@ export const createUser = async (name, email, password) => {
             throw new Error ('Invalid name input');
         }
 
-        if (typeof password !== 'stirng' || password.trim() === ''){
+        if (typeof password !== 'string' || password.trim() === ''){
             throw new Error ('Invalid password')
         }
 
@@ -20,18 +20,19 @@ export const createUser = async (name, email, password) => {
 
         const salt = generateSalt();
 
-        const hashedPassword = hashPassword(password, salt);
+        const hashedPassword = await hashPassword(password, salt);
 
         const newUser = await User.create({
             name,
-            email,
+            email: lowercaseEmail,
             hashedPassword,
             salt
         });
 
-        return !!newUser;
+        return newUser;
 
     } catch (error) {
-        
+        console.log("Error adding new user:", error);
+        throw new Error;
     }
 }

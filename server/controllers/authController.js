@@ -1,18 +1,16 @@
-import { generateSalt, hashPassword } from '../utils/passwordHasher.js';
+import { createUser } from "../utils/createUser.js";
 
 export const signup = async (req, res) => {
     try {
-        const { email, password } =  req.body;
+        const { name , email, password } =  req.body;
 
         console.log('Recieved email:', email);
 
-        const generatedSalt = generateSalt();
-        const hashedPassword = await hashPassword(password, generatedSalt);
-        console.log(hashPassword);
+        const user = createUser(name, email, password);
 
+        console.log(user);
         
-
     } catch (error) {
-        
+        console.log("Error creating user:", error);
     }
 }
