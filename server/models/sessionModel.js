@@ -1,0 +1,10 @@
+import mongoose, { MongooseError } from 'mongoose'
+
+const sessionSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    tokenHash: { type: String, required: true},
+}, {timestamps: true});
+
+const Session = mongoose.model('Session', sessionSchema);
+
+export default Session;
