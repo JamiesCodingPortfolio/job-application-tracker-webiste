@@ -1,4 +1,4 @@
-import { User } from '../models/userModel.js'
+import User from '../models/userModel.js'
 
 export const emailExists = async (email) => {
     console.log (`Running email check for email ${email}`);
@@ -9,7 +9,7 @@ export const emailExists = async (email) => {
 
         const lowercaseEmail = email.toLowerCase().trim();
 
-        const user = await User.findone({ lowercaseEmail });
+        const user = await User.findOne({ lowercaseEmail });
         return !!user;
         
     } catch (error) {

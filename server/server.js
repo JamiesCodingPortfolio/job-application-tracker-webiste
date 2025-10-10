@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { connectDB } from './config/database.js';
 
+import authRoutes from "./routes/authRoutes.js"
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -35,6 +37,8 @@ else{
 
 app.use(express.json());
 
+app.use("/api", authRoutes)
+
 if (HTTPS_ENABLED){
 
   const privateKey = fs.readFileSync(join(__dirname, '../private.key'), 'utf-8');
@@ -53,5 +57,5 @@ if (HTTPS_ENABLED){
 else{
   app.listen(HTTP_PORT, '127.0.0.1', () => {
     console.log(`Server running on port ${HTTP_PORT}`);
-  })
+  });
 }

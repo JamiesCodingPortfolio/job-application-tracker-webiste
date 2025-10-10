@@ -33,6 +33,5 @@ export const createUser = async (name, email, password) => {
 
     } catch (error) {
         console.log("Error adding new user:", error);
-        throw new Error;
     }
 }
