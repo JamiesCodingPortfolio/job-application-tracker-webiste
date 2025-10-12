@@ -7,7 +7,7 @@ export const createSession = async (userId) => {
         const userSession = createUserSession();
         const tokenHash = hashTokens(userSession);
 
-        const newSession =  await Session.create({
+        await Session.create({
             userId: userId,
             tokenHash: tokenHash
         });
