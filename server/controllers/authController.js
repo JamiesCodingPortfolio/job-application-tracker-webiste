@@ -1,5 +1,6 @@
 import { createUser } from "../utils/createUser.js";
 import { emailExists } from "../utils/emailExists.js";
+import { createSession } from "../utils/createSession.js";
 
 export const signup = async (req, res) => {
     try {
@@ -13,9 +14,19 @@ export const signup = async (req, res) => {
             return res.status(400).json({ message: "Email already registered" });
         }
 
-        const user = createUser(name, email, password);
+        const user = await createUser(name, email, password);
 
         console.log("Created User:", user._id);
+
+        const session = await createSession(user._id);
+
+        res.cookie('session-cookie', session, {
+            httpOnly: true,
+            secure: process.env.HTTPS_ENABLED === true,
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 1000,
+            path: '/'
+        });
         
         return res.status(201).json({ message: "User created successfully", userId: user._id });
 
