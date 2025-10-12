@@ -1,18 +1,11 @@
-import { createUser } from "../utils/createUser.js";
-import { emailExists } from "../utils/emailExists.js";
-import { createSession } from "../utils/createSession.js";
+import { createUser } from "../services/userService.js"
+import { createSession } from "../services/sessionService.js";
 
 export const signup = async (req, res) => {
     try {
         const { name , email, password } =  req.body;
 
         console.log('Recieved email:', email);
-
-        const emailCheck = await emailExists(email);
-
-        if (emailCheck === true){
-            return res.status(400).json({ message: "Email already registered" });
-        }
 
         const user = await createUser(name, email, password);
 

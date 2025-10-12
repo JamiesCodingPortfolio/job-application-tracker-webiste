@@ -9,11 +9,11 @@ export const emailExists = async (email) => {
 
         const lowercaseEmail = email.toLowerCase().trim();
 
-        const user = await User.findOne({ lowercaseEmail });
+        const user = await User.findOne({ email: lowercaseEmail });
         return !!user;
         
     } catch (error) {
-        console.error("Error checking email addresss:", error.message)
-        throw new Error("Error whilst checking email")
+        console.error("Error checking email addresss:", error.message);
+        throw new Error("Error whilst checking email");
     }
 }
