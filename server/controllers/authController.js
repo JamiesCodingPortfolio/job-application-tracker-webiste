@@ -1,4 +1,4 @@
-import { createUser } from "../services/userService.js"
+import { createUser, userLogin } from "../services/userService.js"
 import { createSession } from "../services/sessionService.js";
 
 export const signup = async (req, res) => {
@@ -21,8 +21,25 @@ export const signup = async (req, res) => {
             path: '/'
         });
         
-        return res.status(201).json({ message: "User created successfully", userId: user._id });
+        return res.status(201).json({ message: "User created successfully"});
 
+    } catch (error) {
+        console.error("Error creating user:", error);
+        return res.status(500).json({ message: error.message || "Internal server error" });
+    }
+}
+
+export const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        console.log("Recieved email for login:", email);
+
+        const user = await userLogin (email, password);
+        
+        console.log(user);
+
+        return res.status(201).json({ message: "User logged in successfully"});
     } catch (error) {
         console.error("Error creating user:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });

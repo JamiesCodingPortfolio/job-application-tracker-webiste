@@ -1,34 +1,26 @@
 import User from "../models/userModel.js"
 import { generateSalt, hashPassword } from "../utils/passwordHasher.js"
 import { emailExists } from "../utils/emailExists.js"
+import { validateInputs } from "../utils/validateInputs.js"
+import { validatePassword } from "../utils/validatePassword.js"
 
 export const createUser = async (name, email, password) => {
     try {
-        if (typeof email !== 'string' || email.trim() === ''){
-            throw new Error('Invalid email input');
-        }
+        const validation = await validateInputs(
+            { name, email, password },
+            { checkName: true, checkEmail: true, checkPassword: true, checkExistingEmail: true, shouldExist: false }
+        );
 
-        if (typeof name !== 'string' || name.trim() === ''){
-            throw new Error ('Invalid name input');
-        }
+        const { name: cleanName, email: cleanEmail, password: cleanPassword } = validation;
 
-        if (typeof password !== 'string' || password.trim() === ''){
-            throw new Error ('Invalid password')
-        }
+        console.log(`Creating account for ${cleanEmail}`)
 
-        if (await emailExists(email) === true){
-            throw new Error ('Email already registered')
-        }
-
-        console.log(`Creating account for ${email}`)
-
-        const lowercaseEmail = email.toLowerCase().trim();
         const salt = generateSalt();
-        const hashedPassword = await hashPassword(password, salt);
+        const hashedPassword = await hashPassword(cleanPassword, salt);
 
         const newUser = await User.create({
-            name,
-            email: lowercaseEmail,
+            name: cleanName,
+            email: cleanEmail,
             hashedPassword,
             salt
         });
@@ -37,5 +29,36 @@ export const createUser = async (name, email, password) => {
 
     } catch (error) {
         console.log("Error adding new user:", error);
+    }
+}
+
+export const userLogin = async (email, password) => {
+    try {
+        const validation = await validateInputs(
+            { email, password },
+            { checkEmail: true, checkPassword: true, checkExistingEmail: true, shouldExist: true }
+        );
+
+        const { email: cleanEmail, password: cleanPassword } = validation;
+
+        console.log(`Attempting to log in user with email ${cleanEmail}`);
+
+        const user = await User.findOne({ email: cleanEmail });
+
+        const newHash = await hashPassword(
+            cleanPassword,
+            user.salt
+        );
+
+        if (validatePassword(newHash, user.hashedPassword)){
+            return user._id;
+        }
+        else {
+            throw new Error ('Email or password is incorrect');
+        }
+
+    } catch (error) {
+        console.error("Login error:", error);
+        throw error;
     }
 }
