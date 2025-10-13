@@ -51,7 +51,7 @@ export const userLogin = async (email, password) => {
         );
 
         if (validatePassword(newHash, user.hashedPassword)){
-            return user._id;
+            return user;
         }
         else {
             throw new Error ('Email or password is incorrect');

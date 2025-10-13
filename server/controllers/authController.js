@@ -37,7 +37,17 @@ export const login = async (req, res) => {
 
         const user = await userLogin (email, password);
         
-        console.log(user);
+        console.log("Logged in user:", user.email);
+
+        const session = await createSession(user._id);
+
+        res.cookie('session-cookie', session, {
+            httpOnly: true,
+            secure: process.env.HTTPS_ENABLED === true,
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 1000,
+            path: '/'
+        });
 
         return res.status(201).json({ message: "User logged in successfully"});
     } catch (error) {
