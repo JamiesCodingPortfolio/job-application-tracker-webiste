@@ -24,7 +24,7 @@ export const signup = async (req, res) => {
         return res.status(201).json({ message: "Account created successfully"});
 
     } catch (error) {
-        console.error("Error creating user:", error);
+        console.error("Error creating account:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
 
         return res.status(201).json({ message: "Logged in successfully"});
     } catch (error) {
-        console.error("Error creating user:", error);
+        console.error("Error logging in:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
