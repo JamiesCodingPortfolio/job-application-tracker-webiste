@@ -4,13 +4,14 @@ const isValidString = (str) =>
     typeof str !== 'string' || str.trim() === '';
 
 export const validateInputs = async (fields, options = {}) => {
-    const { name, email, password } = fields;
+    const { name, email, password, sessionToken } = fields;
     const {
         checkName = false,
         checkEmail = false,
         checkPassword = false,
         checkExistingEmail = false,
         shouldExist = false,
+        checkSessionToken = false,
     } = options;
 
     if (checkName && isValidString(name)) {

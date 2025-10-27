@@ -35,7 +35,7 @@ else{
 
 app.use(express.json());
 
-app.use("/api", authRoutes)
+app.use("/api", authRoutes);
 
 if (HTTPS_ENABLED){
 
@@ -45,7 +45,7 @@ if (HTTPS_ENABLED){
   const httpsServer = https.createServer(
     { key: privateKey, cert: certificate},
     app
-  )
+  );
 
   httpsServer.listen(HTTPS_PORT, '0.0.0.0', () => {
     console.log(`HTTPS Server started on port ${HTTPS_PORT}`);
