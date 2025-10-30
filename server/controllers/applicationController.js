@@ -6,6 +6,7 @@ export const addApplication = async (req, res) => {
         if (!token) return res.status(401).send('Unauthorized');
 
     } catch (error) {
-        
+        console.error("Error creating application:", error);
+        return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
