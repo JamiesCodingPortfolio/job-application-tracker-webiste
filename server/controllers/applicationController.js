@@ -1,4 +1,5 @@
-import { sessionExists } from "../utils/sessionExists";
+import { sessionExists } from "../utils/sessionExists.js";
+import { userExists } from "../utils/userExists.js";
 
 export const addApplication = async (req, res) => {
     try {
@@ -8,6 +9,10 @@ export const addApplication = async (req, res) => {
         if (!token) return res.status(401).send('Unauthorized');
 
         const userId = await sessionExists(token);
+
+        await userExists(userId); //To prevent errors if a users account/database entry is deleted
+
+
 
     } catch (error) {
         console.error("Error creating application:", error);
