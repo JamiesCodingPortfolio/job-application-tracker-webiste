@@ -1,12 +1,16 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
 import https from 'https';
+
 import express from 'express';
+import cookieParser from 'cookie-parser'
+
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { connectDB } from './config/database.js';
 
 import authRoutes from "./routes/authRoutes.js"
+import applicationRoutes from "./routes/applicationRoutes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,8 +38,10 @@ else{
 }
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api", authRoutes);
+app.use("/api/applications", applicationRoutes);
 
 if (HTTPS_ENABLED){
 

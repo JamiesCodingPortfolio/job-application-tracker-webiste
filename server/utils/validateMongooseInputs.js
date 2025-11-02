@@ -6,7 +6,7 @@ export const validateMongooseInputs = async (fields, options = {}) => {
         checkUserId = false,
     } = options;
 
-    if (checkUserId && mongoose.Schema.Types.ObjectId.isValid(objectId)){
+    if (checkUserId && !mongoose.Types.ObjectId.isValid(objectId)){
         throw new Error('Invalid userId input');
     }
 

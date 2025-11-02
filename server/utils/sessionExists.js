@@ -1,5 +1,5 @@
-import Session from "../models/sessionModel"
-import { hashTokens } from "./hashToken";
+import Session from "../models/sessionModel.js"
+import { hashTokens } from "./hashToken.js";
 
 export const sessionExists = async (sessionToken) => {
     try {

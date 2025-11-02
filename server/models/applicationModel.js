@@ -6,6 +6,6 @@ const applicationSchema = new mongoose.Schema ({
     associatedUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 }, {timestamps: true});
 
-const Application = mongoose.model('Applications'. applicationSchema);
+const Application = mongoose.model('Applications', applicationSchema);
 
 export default Application;
