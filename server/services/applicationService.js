@@ -16,6 +16,7 @@ export const createApplication = async (name, description, userId) => {
         return newApplication;
 
     } catch (error) {
-        console.log("Error creating new application:", error);        
+        console.log("Error creating new application:", error);
+        throw error;
     }
 }
