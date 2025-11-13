@@ -1,4 +1,4 @@
-import { createApplication, removeApplication } from "../services/applicationService.js";
+import { changeApplication, createApplication, removeApplication } from "../services/applicationService.js";
 import { sessionExists } from "../utils/sessionExists.js";
 import { userExists } from "../utils/userExists.js";
 
@@ -41,12 +41,36 @@ export const deleteApplication = async (req, res) => {
 
         const application = await removeApplication(name, description, userId);
 
-        console.log("Deleted application", application);
+        console.log("Deleted application", name);
 
         return res.status(201).json({ message: "Application deleted successfully" });
 
     } catch (error) {
         console.error("Error deleting application:", error);
+        return res.status(500).json({ message: error.message || "Internal server error" });
+    }
+}
+
+export const modifyApplication = async (req, res) => {
+    try {
+        const { name, modifyProperty, newProperty } = req.body;
+
+        const token = req.cookies['session-cookie'];
+
+        if (!token) return res.status(401).send('Unauthorised');
+
+        const userId = await sessionExists(token);
+
+        await userExists(userId);
+
+        const application = await changeApplication(name, userId, modifyProperty, newProperty,);
+
+        console.log("Modified application", application._id);
+
+        return res.status(201).json({ message: "Application modified successfully" });
+
+    } catch (error) {
+        console.error("Error modifiying application:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
