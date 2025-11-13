@@ -41,10 +41,10 @@ export const deleteApplication = async (req, res) => {
 
         const application = await removeApplication(name, description, userId);
 
-        console.log("Deleted application", application._id);
+        console.log("Deleted application", application);
 
         return res.status(201).json({ message: "Application deleted successfully" });
-        
+
     } catch (error) {
         console.error("Error deleting application:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
