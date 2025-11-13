@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Link } from "react-router";
 import Login from "./routes/login"; 
 import Signup from "./routes/signup";
+import Dashboard from './routes/dashboard';
 
 function Home() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />}/>
         </Routes>
       </div>
     </BrowserRouter>
