@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post("/add", addApplication);
 router.delete("/delete", deleteApplication);
-router.put("/modify", modifyApplication);
+router.patch("/modify", modifyApplication);
 
 export default router;
