@@ -20,3 +20,23 @@ export const createApplication = async (name, description, userId) => {
         throw error;
     }
 }
+
+export const removeApplication = async (name, description, userId) => {
+    try {
+        //Validation
+
+        console.log(`Deleting existing application associated with userId ${userId}`);
+
+        const existingApplication = await Application.deleteOne({
+            jobName: name,
+            jobDesc: description,
+            associatedUserId: userId,
+        });
+
+        return existingApplication;
+
+    } catch (error) {
+        console.log("Error deleting existing application:", error);
+        throw error;
+    }
+}

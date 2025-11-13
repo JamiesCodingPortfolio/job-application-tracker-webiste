@@ -1,4 +1,4 @@
-import { createApplication } from "../services/applicationService.js";
+import { createApplication, removeApplication } from "../services/applicationService.js";
 import { sessionExists } from "../utils/sessionExists.js";
 import { userExists } from "../utils/userExists.js";
 
@@ -13,7 +13,7 @@ export const addApplication = async (req, res) => {
 
         const userId = await sessionExists(token);
 
-        await userExists(userId); //To prevent errors if a users account/database entry is deleted
+        await userExists(userId); //To prevent errors if a users account/database entry is deleted whilst a user is logged on
 
         const application = await createApplication(name, description, userId);
 
@@ -23,6 +23,30 @@ export const addApplication = async (req, res) => {
 
     } catch (error) {
         console.error("Error creating application:", error);
+        return res.status(500).json({ message: error.message || "Internal server error" });
+    }
+}
+
+export const deleteApplication = async (req, res) => {
+    try {
+        const { name, description } = req.body;
+
+        const token = req.cookies['session-cookie'];
+
+        if (!token) return res.status(401).send('Unauthorised');
+
+        const userId = await sessionExists(token);
+
+        await userExists(userId);
+
+        const application = await removeApplication(name, description, userId);
+
+        console.log("Deleted application", application._id);
+
+        return res.status(201).json({ message: "Application deleted successfully" });
+        
+    } catch (error) {
+        console.error("Error deleting application:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
