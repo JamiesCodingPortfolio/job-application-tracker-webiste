@@ -1,9 +1,10 @@
 import express from "express";
-import { addApplication, deleteApplication, modifyApplication } from "../controllers/applicationController.js";
+import { addApplication, deleteApplication, modifyApplication, getApplications } from "../controllers/applicationController.js";
 
 const router = express.Router();
 
-router.post("/add", addApplication);
+router.get("/", getApplications);
+router.post("/", addApplication);
 router.delete("/delete", deleteApplication);
 router.patch("/modify", modifyApplication);
 

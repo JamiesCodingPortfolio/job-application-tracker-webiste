@@ -6,7 +6,7 @@ const Dashboard = () => {
 
     const fetchDashboard = async () => {
         try {
-            const response = await fetch('/api/dashboard', {
+            const response = await fetch('/api/applications', {
                 method: 'GET',
                 credentials: 'include'
             });

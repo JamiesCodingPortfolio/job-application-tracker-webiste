@@ -74,3 +74,28 @@ export const changeApplication = async (name, userId, propertyModified, newPrope
         throw error;
     }
 }
+
+export const listApplications = async (userId) => {
+    try {
+        //Validation here
+
+        console.log(`Fetching appications associated with userId ${userId}`);
+
+        const applications = await Application.find(
+            { associatedUserId: userId },
+            "jobName jobDesc state createdAt"
+        );
+
+        const returnedApplications = applications.map(app => ({
+            jobName: app.jobName,
+            jobDesc: app.jobDesc,
+            state: app.state,
+            createdAt: app.createdAt,
+        }));
+
+        return returnedApplications;
+    } catch (error) {
+        console.log("Error accessing existing applications:", error);
+        throw error;
+    }
+}
