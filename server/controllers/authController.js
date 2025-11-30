@@ -1,5 +1,6 @@
 import { createUser, userLogin } from "../services/userService.js"
 import { createSession } from "../services/sessionService.js";
+import { sessionExists } from "../utils/sessionExists.js";
 
 export const signup = async (req, res) => {
     try {
@@ -53,5 +54,17 @@ export const login = async (req, res) => {
     } catch (error) {
         console.error("Error logging in:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
+    }
+}
+
+export const logout = async (req, res) => {
+    try {
+        const token = req.cookies['session-cookie'];
+
+        if (!token) return res.status(401).send('Unauthorised');
+
+        
+    } catch (error) {
+        
     }
 }
