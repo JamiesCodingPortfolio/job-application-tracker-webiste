@@ -1,6 +1,6 @@
 import { createUser, userLogin } from "../services/userService.js"
 import { createSession } from "../services/sessionService.js";
-import { sessionExists } from "../utils/sessionExists.js";
+import { deleteSession } from "../utils/deleteSession.js";
 
 export const signup = async (req, res) => {
     try {
@@ -63,8 +63,14 @@ export const logout = async (req, res) => {
 
         if (!token) return res.status(401).send('Unauthorised');
 
-        
+        const result = await deleteSession(token);
+
+        console.log(result);
+
+        res.clearCookie('session-cookie');
+        return res.status(200).json({ message: "Logged out successfully"});
     } catch (error) {
-        
+        console.log("Error logging out:", error);
+        return res.status(500).json({ message: error.message || "Internal server error" });
     }
 }
