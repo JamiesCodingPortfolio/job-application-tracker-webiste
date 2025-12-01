@@ -68,9 +68,21 @@ export const logout = async (req, res) => {
         console.log(result);
 
         res.clearCookie('session-cookie');
-        return res.status(200).json({ message: "Logged out successfully"});
+        return res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
         console.log("Error logging out:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
+    }
+}
+
+export const verifySession = async (req, res) => {
+    try {
+        const token = req.cookies['session-cookie'];
+
+        if(!token) return res.status(401).send('Session does not exist');
+
+        return res.status(200).json({ message: "Session exists redirecting..." });
+    } catch (error) {
+        
     }
 }

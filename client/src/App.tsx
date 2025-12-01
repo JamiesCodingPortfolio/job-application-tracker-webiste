@@ -3,8 +3,30 @@ import { BrowserRouter, Routes, Route, Link } from "react-router";
 import Login from "./routes/login"; 
 import Signup from "./routes/signup";
 import Dashboard from './routes/dashboard';
+import { useNavigate } from "react-router";
+import { useEffect } from 'react';
 
 function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const repsonse = await fetch('/api/verify-session', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        if (!repsonse.ok) throw new Error ('Session check failed');
+
+        navigate('/dashboard');
+      } catch (error) {
+        console.error("Session verification error:", error);
+      }
+    };
+
+    verifySession();
+  }, [navigate]);
   return (
     <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
       <Link
