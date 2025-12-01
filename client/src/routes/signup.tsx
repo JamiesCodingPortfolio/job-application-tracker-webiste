@@ -57,7 +57,7 @@ const Signup = () => {
     }
   }
   return (
-    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
+    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10'>
       <form className="flex flex-col items-center justify-start gap-y-2 px-8" onSubmit={handleSubmit}>
         <label htmlFor="name" className="text-gray-400">Name</label>
         <input 

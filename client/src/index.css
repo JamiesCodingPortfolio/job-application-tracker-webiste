@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 body{
+  display: flex;
   width: 100dvw;
   height: 100dvh;
+
+  background-image: linear-gradient(
+    to bottom,
+    #93E2FF,
+    #D7F1FA
+  );
 }

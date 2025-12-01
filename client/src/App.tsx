@@ -17,9 +17,12 @@ function Home() {
           credentials: 'include'
         });
 
-        if (!repsonse.ok) throw new Error ('Session check failed');
+        if (!repsonse.ok){
+          navigate('/dashboard');
+        } 
 
-        navigate('/dashboard');
+        throw new Error ('Session check failed');
+        
       } catch (error) {
         console.error("Session verification error:", error);
       }
@@ -28,7 +31,7 @@ function Home() {
     verifySession();
   }, [navigate]);
   return (
-    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10 bg-emerald-950'>
+    <div className='h-screen w-screen flex flex-row items-center justify-center gap-10'>
       <Link
         to="/login"
         className="w-[30%] h-[20%] flex items-center justify-center text-center bg-gray-100 rounded-lg"
@@ -48,7 +51,7 @@ function Home() {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="h-screen w-screen flex flex-col items-center justify-center gap-10 bg-white">
+      <div className="h-screen w-screen flex flex-col items-center justify-center gap-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

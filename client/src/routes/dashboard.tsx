@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center justify-center gap-10 bg-emerald-950'>
+        <div className='h-screen w-screen flex flex-col items-center justify-center gap-10'>
             <div className="top-header flex w-full h-10% absolute top-0 justify-center">
                 <button 
                     onClick={handleLogout}
