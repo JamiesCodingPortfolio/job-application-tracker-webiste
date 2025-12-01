@@ -15,8 +15,12 @@ const Dashboard = () => {
                 method: 'GET',
                 credentials: 'include'
             });
+
+            if (response.status === 401){
+              throw new Error (response.statusText);
+            }
         } catch (error) {
-            
+            console.error("An error occured:", error);
         }
     }
 
