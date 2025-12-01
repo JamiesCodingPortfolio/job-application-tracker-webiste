@@ -5,6 +5,8 @@ const sessionSchema = new mongoose.Schema({
     tokenHash: { type: String, required: true},
 }, {timestamps: true});
 
+sessionSchema.index({ createdAt: 1 }, { expires: '14d' });
+
 const Session = mongoose.model('Session', sessionSchema);
 
 export default Session;
