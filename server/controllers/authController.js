@@ -1,6 +1,5 @@
 import { createUser, userLogin } from "../services/userService.js"
-import { createSession } from "../services/sessionService.js";
-import { deleteSession } from "../utils/deleteSession.js";
+import { createSession, deleteSession } from "../services/sessionService.js";
 
 export const signup = async (req, res) => {
     try {
