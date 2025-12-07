@@ -83,6 +83,8 @@ export const getApplications = async (req, res) => {
 
         const userId = await sessionExists(token);
 
+        if (userId === null) return res.status(401).send('User does not exist');
+
         await userExists(userId);
 
         const applications = await listApplications(userId);
@@ -91,7 +93,10 @@ export const getApplications = async (req, res) => {
 
         console.log("Data sent for userId", userId);
 
-        return res.status(200).json(applications);
+        return res.status(200).json({
+            message: "Authenticated",
+            apps: applications
+        });
     } catch (error) {
         console.error("Error fetching applications:", error);
         return res.status(500).json({ message: error.message || "Internal server error" });
