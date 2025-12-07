@@ -17,7 +17,7 @@ function Home() {
           credentials: 'include'
         });
 
-        if (!repsonse.ok){
+        if (repsonse.ok){
           navigate('/dashboard');
         } 
 

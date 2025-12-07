@@ -87,6 +87,8 @@ export const getApplications = async (req, res) => {
 
         const applications = await listApplications(userId);
 
+        console.log(applications);
+
         console.log("Data sent for userId", userId);
 
         return res.status(200).json(applications);
