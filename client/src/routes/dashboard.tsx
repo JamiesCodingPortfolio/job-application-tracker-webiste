@@ -10,7 +10,7 @@ interface Application {
 
 const Dashboard = () => {
   
-  const [applications, useApplications] = useState<Application[]>([]);
+  const [apps, setApps] = useState<Application[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,18 +19,29 @@ const Dashboard = () => {
 
   const fetchDashboard = async () => {
     try {
-        const response = await fetch('/api/applications', {
-            method: 'GET',
-            credentials: 'include'
-        });
+      const response = await fetch('/api/applications', {
+          method: 'GET',
+          credentials: 'include'
+      });
 
-        if (response.status === 401){
-          throw new Error (response.statusText);
+      if (response.status === 401){
+        throw new Error (response.statusText);
+      }
+
+      const data = await response.json();
+
+      if(Array.isArray(data.applications)) {
+        setApps(data.applications);
+        if(data.applications.length === 0){
+          navigate('/new-application');
         }
+      } else {
+        console.error('Invalid applications data:', data.applications);
+        setApps([]);
+        navigate('/new-application');
+      }
 
-        const data = response.json();
-
-        console.log(data);
+      console.log(data);
     } catch (error) {
       console.error("An error occured:", error);
     }
@@ -67,8 +78,29 @@ const Dashboard = () => {
       </div>
       <div>
         <h1>
-            Dashboard
+            Application Dashboard
         </h1>
+      </div>
+      <div className="h-full mt-4 overflow-scroll">
+        {apps.length === 0 ?  (
+          <div className="text-gray-500 text-center">No applications created!</div>
+        ) : (
+          apps.map((app, index) => (
+            <div
+            key={index}
+            className="application-card bg-gray-50 rounded-lg p-4 mb-3"
+            >
+              <div className="application-content">
+                <div className="font-semibold text-lg text-[#E2848C]">
+                  <h1>Job Name: {app.jobName}</h1>
+                </div>
+                <div>
+                  <h1>Description: {app.jobDesc}</h1>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

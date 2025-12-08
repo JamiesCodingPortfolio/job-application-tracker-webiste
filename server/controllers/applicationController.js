@@ -83,7 +83,7 @@ export const getApplications = async (req, res) => {
 
         const userId = await sessionExists(token);
 
-        if (userId === null) return res.status(401).send('User does not exist');
+        if (userId === null) return res.status(401).send('User does not exist').clearCookie('session-cookie');
 
         await userExists(userId);
 
@@ -95,7 +95,7 @@ export const getApplications = async (req, res) => {
 
         return res.status(200).json({
             message: "Authenticated",
-            apps: applications
+            applications: applications
         });
     } catch (error) {
         console.error("Error fetching applications:", error);
